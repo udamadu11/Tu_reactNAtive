@@ -1,27 +1,46 @@
 import React from 'react';
-import {View } from 'react-native';
+import {View,Text } from 'react-native';
 import {DISHES} from '../shared/dishes';
 import Menu from './Menu';
 import DishDetails from './DishDetails';
-export default class MainComponent extends React.Component{
- constructor(props){
-     super(props);
-     this.state = {
-         dishes : DISHES,
-         selectedDish:null
-     }
- }
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
- onDishSelected(dishId){
-     this.setState({selectedDish:dishId})
- }
+
+
+
+const Stack = createStackNavigator();
+
+function RootStack(){
+    return(
+        <NavigationContainer>
+         <Stack.Navigator
+          initialRouteName="Menu"
+          screenOptions={{ gestureEnabled: false }}
+        >
+          <Stack.Screen
+            name="Menu"
+            component={Menu}
+            options={{ title: 'Menu' }}
+          />
+          <Stack.Screen
+            name="DishDetails"
+            component={DishDetails}
+            initialParams={{ dishId: 'dishId' }}
+          />
+        </Stack.Navigator>
+        </NavigationContainer>
+    );
+        
+};
+
+export default class MainComponent extends React.Component{
+
  render(){
+
      return(
          <View style={{flex:1}}>
-            <Menu dishes={this.state.dishes}
-            onPress={dishId => this.onDishSelected(dishId)}
-            />
-            <DishDetails  dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}/>
+           <RootStack />
         </View>
      );
  }
