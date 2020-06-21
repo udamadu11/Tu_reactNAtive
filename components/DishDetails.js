@@ -33,7 +33,7 @@ class DishDetails extends React.Component{
     render(){
         
         
-        const dishId = this.props.navigation.getParam('dishId','');
+        const {dishId} = this.props.navigation.getParam('dishId','');
 
         return(
         <View>

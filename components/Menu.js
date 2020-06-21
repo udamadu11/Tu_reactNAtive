@@ -11,6 +11,7 @@ class Menu extends React.Component{
         };
     }
 
+    
     render(){
         const renderMenuItem = ({item,index}) =>{
             return(
